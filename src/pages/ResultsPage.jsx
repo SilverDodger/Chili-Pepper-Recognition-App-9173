@@ -5,7 +5,7 @@ import PepperCard from '../components/PepperCard';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiArrowLeft, FiUpload, FiDatabase, FiEye } = FiIcons;
+const { FiArrowLeft, FiUpload, FiDatabase, FiExternalLink } = FiIcons;
 
 const ResultsPage = () => {
   const { analysisResults, uploadedImage } = usePepper();
@@ -38,14 +38,19 @@ const ResultsPage = () => {
           <span>Upload Another Image</span>
         </Link>
         
-        <div className="flex items-center space-x-4 text-sm text-gray-600">
+        <div className="flex items-center text-sm text-gray-600">
           <div className="flex items-center space-x-1">
             <SafeIcon icon={FiDatabase} />
-            <span>{totalPeppersAnalyzed} peppers analyzed</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <SafeIcon icon={FiEye} />
-            <span>Google Images matched</span>
+            <span>{totalPeppersAnalyzed} peppers analyzed from </span>
+            <a 
+              href="https://pepperscale.com/hot-pepper-list/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-orange-600 hover:text-orange-700 flex items-center"
+            >
+              PepperScale
+              <SafeIcon icon={FiExternalLink} className="ml-1 text-xs" />
+            </a>
           </div>
         </div>
       </div>
@@ -62,7 +67,7 @@ const ResultsPage = () => {
               <img
                 src={uploadedImage}
                 alt="Uploaded pepper"
-                className="w-full h-64 object-cover rounded-lg main-pepper-image"
+                className="w-full h-64 object-cover rounded-lg"
               />
             </div>
           </div>
@@ -94,6 +99,23 @@ const ResultsPage = () => {
                 )}
               </div>
             </div>
+            
+            <div className="mt-4 text-center">
+              <a 
+                href={primaryMatch.pepperScaleLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 text-orange-600 hover:text-orange-700 font-medium"
+              >
+                <img 
+                  src="https://pepperscale.com/wp-content/uploads/2019/01/pepperscale-logo-2019.png" 
+                  alt="PepperScale" 
+                  className="h-5 mr-1"
+                />
+                <span>View detailed info on PepperScale.com</span>
+                <SafeIcon icon={FiExternalLink} className="text-sm" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -118,11 +140,31 @@ const ResultsPage = () => {
 
       <div className="mt-8 text-center">
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h4 className="font-bold text-gray-800 mb-2">About This Analysis</h4>
+          <div className="flex items-center justify-center mb-2">
+            <a 
+              href="https://pepperscale.com/hot-pepper-list/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              <img 
+                src="https://pepperscale.com/wp-content/uploads/2019/01/pepperscale-logo-2019.png" 
+                alt="PepperScale" 
+                className="h-6 mr-2"
+              />
+              <h4 className="font-bold text-gray-800">About This Analysis</h4>
+            </a>
+          </div>
           <p className="text-sm text-gray-600 leading-relaxed">
             This identification uses computer vision to analyze your pepper's color, shape, and size, 
-            then matches against our database of {totalPeppersAnalyzed} pepper varieties. 
-            Images and additional information are sourced from Google Images and PepperScale.com.
+            then matches against PepperScale's database of {totalPeppersAnalyzed} pepper varieties. 
+            Images and additional information are sourced exclusively from 
+            <a 
+              href="https://pepperscale.com/hot-pepper-list/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-orange-600 hover:text-orange-700"
+            > PepperScale.com's hot pepper list</a>.
             Results are estimates - for definitive identification, consult a pepper expert.
           </p>
         </div>

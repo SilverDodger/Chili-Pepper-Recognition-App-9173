@@ -18,8 +18,8 @@ const FeatureGrid = () => {
     },
     {
       icon: FiDatabase,
-      title: "Comprehensive Database",
-      description: "Access to extensive pepper variety database with images from trusted sources"
+      title: "Complete PepperScale Database",
+      description: "Access to all peppers from PepperScale.com's hot pepper list with images and details"
     },
     {
       icon: FiShield,

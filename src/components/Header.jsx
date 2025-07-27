@@ -22,14 +22,19 @@ const Header = () => {
             </div>
           </div>
           
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="flex items-center">
             <div className="text-right">
               <p className="text-xs text-gray-500">Powered by</p>
-              <div className="flex items-center space-x-2">
+              <a 
+                href="https://pepperscale.com/hot-pepper-list/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
                 <img 
-                  src="https://www.pepperscale.com/wp-content/uploads/2019/01/pepperscale-logo-2019.png" 
+                  src="https://pepperscale.com/wp-content/uploads/2019/01/pepperscale-logo-2019.png" 
                   alt="PepperScale" 
-                  className="h-6"
+                  className="h-8"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'block';
@@ -38,11 +43,7 @@ const Header = () => {
                 <span className="text-sm font-semibold text-orange-600 hidden">
                   PepperScale
                 </span>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className="text-xs text-gray-500">&</p>
-              <p className="text-sm font-semibold text-blue-600">Google Images</p>
+              </a>
             </div>
           </div>
         </Link>

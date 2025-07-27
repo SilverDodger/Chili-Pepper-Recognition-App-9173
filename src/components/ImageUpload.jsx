@@ -67,10 +67,10 @@ const ImageUpload = () => {
       setAnalysisStage('Analyzing colors and patterns...');
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      setAnalysisStage('Searching pepper database...');
-      await new Promise(resolve => setTimeout(resolve, 500));
+      setAnalysisStage('Searching PepperScale database...');
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      setAnalysisStage('Matching with Google Images...');
+      setAnalysisStage('Matching with known pepper varieties...');
       
       // Attempt real identification first, fallback if needed
       let results;
@@ -129,7 +129,7 @@ const ImageUpload = () => {
             {analysisStage || 'Processing your image...'}
           </p>
           <p className="text-sm text-gray-500 mb-6">
-            Using Google Image Search and PepperScale database
+            Using PepperScale.com's comprehensive hot pepper database
           </p>
           <div className="bg-gray-200 rounded-full h-3 w-64 mx-auto">
             <div className="bg-gradient-to-r from-red-500 to-orange-500 h-3 rounded-full animate-pulse transition-all duration-1000" style={{width: '75%'}}></div>
@@ -181,7 +181,15 @@ const ImageUpload = () => {
         </div>
         
         <div className="mt-4 text-xs text-gray-400">
-          Powered by Google Images API and PepperScale.com database
+          Powered by 
+          <a 
+            href="https://pepperscale.com/hot-pepper-list/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-orange-500 hover:text-orange-600 ml-1"
+          >
+            PepperScale.com's hot pepper list
+          </a>
         </div>
       </div>
     </div>

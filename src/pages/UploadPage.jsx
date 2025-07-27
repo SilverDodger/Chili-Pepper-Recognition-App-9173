@@ -10,8 +10,17 @@ const UploadPage = () => {
           Identify Your Chili Pepper
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Upload a clear photo of your chili pepper and let our AI identify the variety with 
-          detailed information and similar matches.
+          Upload a clear photo of your chili pepper and let our AI identify the variety with detailed information from PepperScale's comprehensive database.
+        </p>
+        <p className="text-sm text-gray-500 mt-2">
+          <a 
+            href="https://pepperscale.com/hot-pepper-list/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-orange-600 hover:underline"
+          >
+            Browse the complete pepper list on PepperScale.com
+          </a>
         </p>
       </div>
       

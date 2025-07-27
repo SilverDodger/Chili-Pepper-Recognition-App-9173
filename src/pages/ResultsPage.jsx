@@ -5,7 +5,7 @@ import PepperCard from '../components/PepperCard';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiArrowLeft, FiUpload } = FiIcons;
+const { FiArrowLeft, FiUpload, FiDatabase, FiEye } = FiIcons;
 
 const ResultsPage = () => {
   const { analysisResults, uploadedImage } = usePepper();
@@ -25,7 +25,7 @@ const ResultsPage = () => {
     );
   }
 
-  const { primaryMatch, alternatives } = analysisResults;
+  const { primaryMatch, alternatives, imageFeatures, totalPeppersAnalyzed } = analysisResults;
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -37,6 +37,17 @@ const ResultsPage = () => {
           <SafeIcon icon={FiArrowLeft} />
           <span>Upload Another Image</span>
         </Link>
+        
+        <div className="flex items-center space-x-4 text-sm text-gray-600">
+          <div className="flex items-center space-x-1">
+            <SafeIcon icon={FiDatabase} />
+            <span>{totalPeppersAnalyzed} peppers analyzed</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <SafeIcon icon={FiEye} />
+            <span>Google Images matched</span>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
@@ -51,7 +62,7 @@ const ResultsPage = () => {
               <img
                 src={uploadedImage}
                 alt="Uploaded pepper"
-                className="w-full h-64 object-cover rounded-lg"
+                className="w-full h-64 object-cover rounded-lg main-pepper-image"
               />
             </div>
           </div>
@@ -72,6 +83,15 @@ const ResultsPage = () => {
                   <span className="text-gray-600">Heat Level:</span>
                   <span className="font-semibold">{primaryMatch.heatLevel}</span>
                 </div>
+                {imageFeatures && (
+                  <div className="mt-4 pt-3 border-t border-gray-200">
+                    <h4 className="font-semibold text-gray-700 mb-2">Detected Features:</h4>
+                    <div className="text-sm text-gray-600">
+                      <p>Dominant colors detected in image</p>
+                      <p>Shape analysis: {imageFeatures.shape?.aspectRatio > 2 ? 'Long/Thin' : imageFeatures.shape?.aspectRatio < 1.5 ? 'Round/Wide' : 'Medium'}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -93,6 +113,18 @@ const ResultsPage = () => {
           {alternatives.map((pepper, index) => (
             <PepperCard key={index} pepper={pepper} isPrimary={false} />
           ))}
+        </div>
+      </div>
+
+      <div className="mt-8 text-center">
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h4 className="font-bold text-gray-800 mb-2">About This Analysis</h4>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            This identification uses computer vision to analyze your pepper's color, shape, and size, 
+            then matches against our database of {totalPeppersAnalyzed} pepper varieties. 
+            Images and additional information are sourced from Google Images and PepperScale.com.
+            Results are estimates - for definitive identification, consult a pepper expert.
+          </p>
         </div>
       </div>
     </div>

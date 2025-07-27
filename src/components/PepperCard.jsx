@@ -2,7 +2,7 @@ import React from 'react';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiThermometer, FiMapPin, FiInfo } = FiIcons;
+const { FiThermometer, FiMapPin, FiInfo, FiExternalLink } = FiIcons;
 
 const PepperCard = ({ pepper, isPrimary }) => {
   return (
@@ -11,7 +11,7 @@ const PepperCard = ({ pepper, isPrimary }) => {
     }`}>
       {isPrimary && (
         <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 text-center font-semibold">
-          🏆 Best Match
+          🏆 Best Match - {pepper.confidence}% Confidence
         </div>
       )}
       
@@ -23,6 +23,17 @@ const PepperCard = ({ pepper, isPrimary }) => {
               <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
                 {pepper.confidence}% Match
               </span>
+              {pepper.pepperScaleData && (
+                <a
+                  href={`https://www.pepperscale.com/search/?q=${encodeURIComponent(pepper.name)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 text-orange-600 hover:text-orange-700"
+                >
+                  <span>PepperScale</span>
+                  <SafeIcon icon={FiExternalLink} className="text-xs" />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -33,9 +44,28 @@ const PepperCard = ({ pepper, isPrimary }) => {
             alt={pepper.name}
             className="w-full h-48 object-cover rounded-lg"
             onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/400x300/f87171/ffffff?text=Pepper+Image';
+              // Fallback to a generic pepper image
+              e.target.src = `https://via.placeholder.com/400x300/f87171/ffffff?text=${encodeURIComponent(pepper.name)}+Pepper`;
             }}
           />
+          {pepper.images && pepper.images.length > 1 && (
+            <div className="flex space-x-2 mt-2">
+              {pepper.images.slice(1, 3).map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`${pepper.name} ${index + 2}`}
+                  className="w-16 h-16 object-cover rounded border-2 border-gray-200 hover:border-red-300 cursor-pointer transition-colors"
+                  onClick={() => {
+                    document.querySelector('.main-pepper-image').src = img;
+                  }}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="space-y-4 mb-6">
@@ -79,6 +109,12 @@ const PepperCard = ({ pepper, isPrimary }) => {
             <span className="font-semibold text-gray-700">Common Uses:</span>
             <p className="text-gray-600">{pepper.uses}</p>
           </div>
+        </div>
+
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <p className="text-xs text-gray-500 text-center">
+            Data sourced from PepperScale.com and Google Images
+          </p>
         </div>
       </div>
     </div>
